@@ -1,0 +1,62 @@
+#!/bin/bash
+#
+# /usr/local/sbin/seafile-server-backup-database
+#
+# Copyright 2016, Alexander Jackson <alexander.jackson@seafile.de>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Uncomment to debug
+#set -x
+
+# Vars
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+BACKUP_DIR=/var/backups/seafile-server/database/${TIMESTAMP}
+DB_RETENTION=14
+
+# MySQL Credentials
+MHOST=localhost
+MUSER=root
+MPASS=secret
+
+# MySQL Databases. Add multiple DBs separated by spaces...
+DBS="ccnet-db seafile-db seahub-db"
+
+# Create backup dir
+mkdir -p ${BACKUP_DIR}
+
+# User info
+echo
+echo This might take a while. Please be patient!
+echo
+
+# Backup DBs and compress
+for i in ${DBS}; do
+  cd ${BACKUP_DIR} ;
+  echo Backing up ${i}
+  time mysqldump -h ${MHOST} -u${MUSER} -p${MPASS} --opt ${i} > db_${i}.sql ;
+  tar czf db_${i}.sql.tgz db_${i}.sql ;
+  rm db_${i}.sql ;
+  echo ;
+done
+
+# Delete local backups older than 14 days. Initiate restore from Seahub if needed...
+find ${BACKUP_DIR} -mindepth 1 -maxdepth 1 -type d -mtime +${DB_RETENTION} | xargs rm -rf
+
+# User info
+echo
+echo Finished! The following files have been created in 
+echo ${BACKUP_DIR}
+echo
+ls -ahl ${BACKUP_DIR}
