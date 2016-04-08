@@ -4,7 +4,7 @@ This script is used to create the Seafile client pre-configuration files for Win
 
 # Install Prerequisites
 ```
-apt-get install curl
+apt-get install curl zip
 ```
 
 
