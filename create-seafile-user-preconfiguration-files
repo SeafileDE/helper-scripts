@@ -48,7 +48,6 @@ PreconfigureServerAddr = ${PROTO}://${SERVER_ADDRESS}
 PreconfigureServerAddrOnly = 0
 HideConfigurationWizard = 0
 PreconfigureKeepConfigWhenUninstall = 0
-QT_DEVICE_PIXEL_RATIO = auto
 EOF
 
 
@@ -61,7 +60,6 @@ PreconfigureServerAddr = ${PROTO}://${SERVER_ADDRESS}
 PreconfigureServerAddrOnly = 0
 HideConfigurationWizard = 0
 PreconfigureKeepConfigWhenUninstall = 0
-QT_DEVICE_PIXEL_RATIO = auto
 EOF
 
 cat > ./${WORK_DIR}/${line}/seafile-client.reg.tmp << EOF
@@ -74,7 +72,6 @@ Windows Registry Editor Version 5.00
 "PreconfigureServerAddrOnly"="1"
 "HideConfigurationWizard"="1"
 "PreconfigureKeepConfigWhenUninstall"="1"
-"QT_DEVICE_PIXEL_RATIO"="auto"
 
 [HKEY_CURRENT_USER\Software\Seafile\Seafile Client]
 
