@@ -22,6 +22,20 @@ curl -d "username=username@example.com&password=123456" https://cloud.seafile.co
 ``` 
 
 
+# Update API rate limiting
+Add the following lines to seahub_settings.py and restart your Seafile server.
+```
+# rest_framwork
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'ping': '10000/minute',
+        'anon': '10000/minute',
+        'user': '10000/minute',
+    },
+}
+```
+
+
 # Usage
 After setting the server address and admin token for your installation simply run 
 ```
