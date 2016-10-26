@@ -18,8 +18,22 @@ Set the correct `PROTO`, `SERVER_ADDRESS`, `ADMIN_TOKEN` and `ADMIN_TO_EXLUDE` i
 
 You can retrieve your admin token with 
 ```
-curl -d "username=username@example.com&password=123456" https://cloud.seafile.de/api2/auth-token/
+curl -d "username=username@example.com&password=123456" https://app.seafile.de/api2/auth-token/
 ``` 
+
+
+# Update API rate limiting
+Add the following lines to seahub_settings.py and restart your Seafile server.
+```
+# rest_framwork
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_RATES': {
+        'ping': '10000/minute',
+        'anon': '10000/minute',
+        'user': '10000/minute',
+    },
+}
+```
 
 
 # Usage
