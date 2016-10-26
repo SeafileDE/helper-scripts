@@ -18,7 +18,7 @@ Set the correct `SERVER_ADDRESS` and `ADMIN_TOKEN` in `/usr/local/sbin/create-se
 
 You can retrieve your admin token with 
 ```
-curl -d "username=username@example.com&password=123456" https://cloud.seafile.com/api2/auth-token/
+curl -d "username=username@example.com&password=123456" https://app.seafile.de/api2/auth-token/
 ``` 
 
 
