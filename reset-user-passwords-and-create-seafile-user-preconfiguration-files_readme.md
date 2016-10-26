@@ -11,14 +11,14 @@ apt-get install curl zip pwgen ca-certificates
 # Download as root
 ```
 wget https://raw.githubusercontent.com/SeafileDE/helper-scripts/master/reset-user-passwords-and-create-seafile-user-preconfiguration-files -O /usr/local/sbin/reset-user-passwords-and-create-seafile-user-preconfiguration-files
-chmod 700 /usr/local/sbin/create-seafile-user-preconfiguration-files
+chmod 700 /usr/local/sbin/reset-user-passwords-and-create-seafile-user-preconfiguration-files
 ```
 
-Set the correct `SERVER_ADDRESS` and `ADMIN_TOKEN` in `/usr/local/sbin/reset-user-passwords-and-create-seafile-user-preconfiguration-files`.
+Set the correct `PROTO`, `SERVER_ADDRESS`, `ADMIN_TOKEN` and `ADMIN_TO_EXLUDE` in `/usr/local/sbin/reset-user-passwords-and-create-seafile-user-preconfiguration-files`.
 
 You can retrieve your admin token with 
 ```
-curl -d "username=username@example.com&password=123456" https://cloud.seafile.com/api2/auth-token/
+curl -d "username=username@example.com&password=123456" https://cloud.seafile.de/api2/auth-token/
 ``` 
 
 
