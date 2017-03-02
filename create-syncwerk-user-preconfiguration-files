@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-# create-seafile-user-preconfiguration-files
+# create-syncwerk-user-preconfiguration-files
 #
-# Copyright 2016, Alexander Jackson <alexander.jackson@seafile.de>
+# Copyright 2016, Alexander Jackson <alexander.jackson@syncwerk.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,9 +24,9 @@ set -x
 # Vars
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 PROTO=http
-SERVER_ADDRESS=my.seafile.server
+SERVER_ADDRESS=my.syncwerk.server
 ADMIN_TOKEN=my-admin-token
-WORK_DIR=${TIMESTAMP}_seafile-user-preconfiguration-files
+WORK_DIR=${TIMESTAMP}_syncwerk-user-preconfiguration-files
 
 
 # Get all users from Seafile server
@@ -40,7 +40,7 @@ mkdir -p ./${WORK_DIR}/${line}
 
 
 ## Linux and OSX
-cat > ./${WORK_DIR}/${line}/.seafilerc << EOF
+cat > ./${WORK_DIR}/${line}/.syncwerkrc << EOF
 [preconfigure]
 PreconfigureDirectory = ~/
 PreconfigureUsername = ${line}
@@ -52,7 +52,7 @@ EOF
 
 
 ## Windows
-cat > ./${WORK_DIR}/${line}/seafile.ini.tmp << EOF
+cat > ./${WORK_DIR}/${line}/syncwerk.ini.tmp << EOF
 [preconfigure]
 PreconfigureDirectory = "%USERPROFILE%"
 PreconfigureUsername = ${line}
@@ -62,7 +62,7 @@ HideConfigurationWizard = 0
 PreconfigureKeepConfigWhenUninstall = 0
 EOF
 
-cat > ./${WORK_DIR}/${line}/seafile-client.reg.tmp << EOF
+cat > ./${WORK_DIR}/${line}/syncwerk-client.reg.tmp << EOF
 Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Software\Seafile]
@@ -82,12 +82,12 @@ Windows Registry Editor Version 5.00
 EOF
 
 
-# Convert seafile.ini seafile-client.reg and to Windows line format
-for i in seafile.ini seafile-client.reg ; do awk 'sub("$", "\r")' ./${WORK_DIR}/${line}/${i}.tmp > ./${WORK_DIR}/${line}/${i} ; done
+# Convert syncwerk.ini syncwerk-client.reg and to Windows line format
+for i in syncwerk.ini syncwerk-client.reg ; do awk 'sub("$", "\r")' ./${WORK_DIR}/${line}/${i}.tmp > ./${WORK_DIR}/${line}/${i} ; done
 
 
 # Delete temporary files
-for i in seafile.ini seafile-client.reg ; do rm ./${WORK_DIR}/${line}/${i}.tmp ; done
+for i in syncwerk.ini syncwerk-client.reg ; do rm ./${WORK_DIR}/${line}/${i}.tmp ; done
 
 done
 
